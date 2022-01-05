@@ -1,0 +1,31 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    transition: opacity 1s;
+    font-family: Arial, sans-serif;
+	font-size: 0;
+}
+
+body > * {
+	font-size: 17px;
+}
+
+.column {
+    height: 100vh;
+    overflow: hidden;
+    width: 50%;
+    display: inline-block;
+}
+
+.statusbar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    color: white;
+    text-align: center;
+    background-color: #790e1c;
+    width: 100vw;
+}
