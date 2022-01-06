@@ -1,9 +1,20 @@
 <?php
 date_default_timezone_set('Europe/Prague');
 
+if (!file_exists(__DIR__ . '/config.php')) {
+	file_put_contents(__DIR__ . '/config.php', "<?php
+return array(
+	'owm_key' => '<openweathermap-api-key>'
+);
+");
+}
+
+$config = include(__DIR__ . '/config.php');
+
 $sites = array(
 	'rss' => 'https://www.gyohavl.cz/aktuality?action=atom',
-	'owm' => 'http://api.openweathermap.org/data/2.5/weather?lat=49.8465503&lon=18.1733089&lang=cz&units=metric&appid=327f641ce35e595aec70ba9f684c9764',
+	'owm' => 'http://api.openweathermap.org/data/2.5/weather?lat=49.8465503&lon=18.1733089&lang=cz&units=metric&appid='
+		. (isset($config['owm_key']) ? $config['owm_key'] : ''),
 	'suplovani' => 'data/right/suplobec.htm'
 );
 
