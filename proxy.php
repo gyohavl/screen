@@ -2,13 +2,15 @@
 date_default_timezone_set('Europe/Prague');
 
 $sites = array(
-	'rss' => 'https://www.gyohavl.cz/aktuality?action=atom'
+	'rss' => 'https://www.gyohavl.cz/aktuality?action=atom',
+	'owm' => 'http://api.openweathermap.org/data/2.5/weather?lat=49.8465503&lon=18.1733089&lang=cz&units=metric&appid=327f641ce35e595aec70ba9f684c9764',
+	'suplovani' => 'data/right/suplobec.htm'
 );
 
 if (!empty($_GET['get'])) {
 	$key = $_GET['get'];
 	if (array_key_exists($key, $sites)) {
-		echo file_get_contents($sites[$key]);
+		echo format(file_get_contents($sites[$key]), $key);
 	} else if ($key == 'images') {
 		header('Content-Type: text/plain');
 		$location = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/data/left/';
@@ -21,8 +23,15 @@ if (!empty($_GET['get'])) {
 				echo "$location$i.png$etag\n";
 			}
 		}
-	} else if ($key == 'suplovani') {
-		echo formatSuplovani(file_get_contents('data/right/suplobec.htm'));
+	}
+}
+
+function format($html, $key) {
+	switch ($key) {
+		case 'suplovani':
+			return formatSuplovani($html);
+		default:
+			return $html;
 	}
 }
 
