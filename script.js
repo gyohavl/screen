@@ -19,7 +19,7 @@ const formatFunctions = [
         return data.endpoints[1].split(suplovaniDelimiter)[2]
     },
     function statusbar() {
-        return data.endpoints[1].split(suplovaniDelimiter)[0] + data.endpoints[1].split(suplovaniDelimiter)[1]
+        return data.endpoints[2] + data.endpoints[1].split(suplovaniDelimiter)[0] + data.endpoints[1].split(suplovaniDelimiter)[1]
     }
 ]
 const scroll = {

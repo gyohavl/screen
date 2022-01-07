@@ -4,13 +4,14 @@ date_default_timezone_set('Europe/Prague');
 if (!file_exists(__DIR__ . '/config.php')) {
 	file_put_contents(__DIR__ . '/config.php', "<?php
 return array(
-	'owm_key' => '<openweathermap-api-key>'
+	'owm_key' => '<openweathermap-api-key>',
+	'debug' => true
 );
 ");
 }
 
 $config = include(__DIR__ . '/config.php');
-
+error_reporting($config['debug'] ? E_ALL : 0);
 $sites = array(
 	'rss' => 'https://www.gyohavl.cz/aktuality?action=atom',
 	'owm' => 'http://api.openweathermap.org/data/2.5/weather?lat=49.8465503&lon=18.1733089&lang=cz&units=metric&appid='
@@ -41,8 +42,22 @@ function format($html, $key) {
 	switch ($key) {
 		case 'suplovani':
 			return formatSuplovani($html);
+		case 'owm':
+			return formatOWM($html);
 		default:
 			return $html;
+	}
+}
+
+function formatOWM($input) {
+	$data = json_decode($input);
+
+	if (isset($data->weather[0]->id) && isset($data->main->temp)) {
+		$temp = $data->main->temp;
+		$temp = round($temp, 1);
+		$temp = ($temp == 0) ? 0 : $temp; // prevent negative zero
+		$temp = str_replace(array('.', '-'), array(',', '&minus;'), $temp);
+		return "<i class=\"wi wi-owm-{$data->weather[0]->id}\"></i> $temp °C";
 	}
 }
 
