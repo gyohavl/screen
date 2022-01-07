@@ -47,6 +47,8 @@ function format($html, $key) {
 }
 
 function formatSuplovani($html) {
+	$delimiter = ';!;';
+
 	if ($html) {
 		$html = iconv('windows-1250', 'UTF-8', $html);
 		$html = preg_replace('/[\n\r]/', '', $html);
@@ -62,9 +64,9 @@ function formatSuplovani($html) {
 			$day = $dateObj->format('j');
 			$month = $dateObj->format('n');
 			$months = array("Měsíce", "ledna", "února", "března", "dubna", "května", "června", "července", "srpna", "září", "října", "listopadu", "prosince");
-			$date = date('j') . ". " . $months[date('n')] . ";$day. {$months[$month]}";
+			$date = date('j') . ". " . $months[date('n')] . "$delimiter$day. {$months[$month]}";
 		} else {
-			$date = ';';
+			$date = $delimiter;
 		}
 
 		$classes = $html;
@@ -95,7 +97,7 @@ function formatSuplovani($html) {
 			$teachers = '';
 		}
 
-		$html = $date . ";" . $classes . $teachers;
+		$html = $date . $delimiter . $classes . $teachers;
 	}
 
 	return $html;
