@@ -1,5 +1,6 @@
 const proxyLocation = 'proxy.php?get='
 let suplovaniDelimiter = ';!;'
+let refreshMillis = 30 * 1000
 const endpoints = ['rss', 'suplovani', 'owm']
 const elements = [
     document.getElementById('left'),
@@ -28,6 +29,7 @@ const scroll = {
 }
 
 getData()
+setInterval(getData, refreshMillis)
 scrollInit()
 
 function getData() {
@@ -57,6 +59,7 @@ function checkAndSetElement(elementId) {
     if (html && html !== data.elements[elementId]) {
         data.elements[elementId] = html
         elements[elementId].innerHTML = html
+        elements[elementId].scrollTop = 0
     }
 }
 
