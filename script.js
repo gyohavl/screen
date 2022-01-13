@@ -1,25 +1,25 @@
 const proxyLocation = 'proxy.php?get='
 let suplovaniDelimiter = ';!;'
 let refreshMillis = 30 * 1000
-const endpoints = ['rss', 'suplovani', 'owm', 'nameday']
+const endpoints = ['rss', 'suplovani', 'owm', 'nameday', 'images']
 const elements = [
     document.getElementById('left'),
     document.getElementById('right'),
     document.getElementById('statusbar')
 ]
 const data = {
-    endpoints: ['', '', '', ''],
+    endpoints: ['', '', '', '', ''],
     elements: ['', '', '']
 }
 const formatFunctions = [
     function left() {
-        return data.endpoints[0]
+        return gec('images') + gec('rss')
     },
     function right() {
-        return data.endpoints[1].split(suplovaniDelimiter)[2]
+        return getPartOfSuplovani(2)
     },
     function statusbar() {
-        return data.endpoints[1].split(suplovaniDelimiter)[0] + data.endpoints[2] + data.endpoints[3] + data.endpoints[1].split(suplovaniDelimiter)[1]
+        return getPartOfSuplovani(0) + gec('owm') + gec('nameday') + getPartOfSuplovani(1)
     }
 ]
 const scroll = {
@@ -78,4 +78,14 @@ function scrollDiv(i) {
     if (reachedMax) {
         elements[i].innerHTML += data.elements[i]
     }
+}
+
+function gec(endpointName) {
+    // getEndpointContent
+    let index = endpoints.indexOf(endpointName)
+    return index === -1 ? '' : data.endpoints[index]
+}
+
+function getPartOfSuplovani(index) {
+    return gec('suplovani').split(suplovaniDelimiter)[index] || ''
 }
