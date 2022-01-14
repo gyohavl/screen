@@ -46,6 +46,8 @@ function format($html, $key) {
 			return formatSuplovani($html);
 		case 'owm':
 			return formatOWM($html);
+		case 'rss':
+			return formatRSS($html);
 		default:
 			return $html;
 	}
@@ -61,6 +63,20 @@ function formatOWM($input) {
 		$temp = str_replace(array('.', '-'), array(',', '&minus;'), $temp);
 		return "<i class=\"wi wi-owm-{$data->weather[0]->id}\"></i>$temp °C";
 	}
+}
+
+function formatRSS($xml) {
+	$simplexml = simplexml_load_string($xml);
+	$jsonxml = json_decode(json_encode($simplexml));
+	// $jsonxml = json_decode($simplexml);
+	// var_dump($jsonxml->channel->item);
+	$result = '';
+
+	foreach ($jsonxml->channel->item as $item_number => $item) {
+		$result .= $item->title . '<br>' . strip_tags($item->description) . '<br><br>';
+	}
+
+	return $result;
 }
 
 function formatSuplovani($html) {
@@ -132,7 +148,7 @@ function formatBoth($html, $isClass) {
 	$html = preg_replace("/\swidth=\"\d+%\"/", "", $html);
 	$html = preg_replace("/\sclass=\"td_suplucit_3\"/", "", $html);
 	$html = preg_replace("/<\/*p>/", "", $html);
-	$html = preg_replace("/(\d)\.\s?hod([^\w\.])/", "$1.&nbsp;hod.$2", $html);
+	$html = preg_replace("/(\d\w?)\.\s?hod([^\w\.])/", "$1.&nbsp;hod.$2", $html);
 	$html = preg_replace("/Chl(\W)/", "chl.$1", $html);
 	$html = preg_replace("/Dív(\W)/", "dív.$1", $html);
 	$html = preg_replace("/(\d?\d\.)(\d?\d\.)/", '$1&nbsp;$2,', $html);

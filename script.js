@@ -13,7 +13,9 @@ const data = {
 }
 const formatFunctions = [
     function left() {
-        return gec('images') + gec('rss')
+        let imageHtml = gec('images').split('\n').map(url => `<img src="${url}" />`).join('')
+        return imageHtml
+        // return gec('rss')
     },
     function right() {
         return getPartOfSuplovani(2)

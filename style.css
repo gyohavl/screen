@@ -29,3 +29,41 @@ body > * {
     background-color: #790e1c;
     width: 100vw;
 }
+
+img {
+    max-width: 100%;
+}
+
+.suplovani {
+    border-left: 3px solid #ddd;
+}
+
+.suplovani td {
+    border: solid #ddd 1px;
+    border-left: none;
+    padding: 5px 10px;
+    text-align: center;
+    color: #555;
+}
+
+.suplovani table:nth-of-type(odd) td:first-child {
+    color: black;
+}
+
+.suplovani table {
+    border-collapse: collapse;
+    width: 100%;
+    position: relative;
+}
+
+.suplovani table tbody {
+    border-top: 2px solid #ddd;
+}
+
+.suplovani table:first-of-type tbody:first-child {
+    border-top-width: 3px;
+}
+
+.suplovani table tbody:nth-child(even) {
+    background-color: #f5f5f5;
+}
