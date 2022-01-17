@@ -20,16 +20,6 @@ body>* {
     display: inline-block;
 }
 
-.statusbar {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    color: white;
-    text-align: center;
-    background-color: #790e1c;
-    width: 100vw;
-}
-
 .feed .rss {
     border-top: 1px solid #ddd;
     border-bottom: 3px solid #ddd;
@@ -39,13 +29,10 @@ body>* {
     padding: 10px;
     font-size: 1.2em;
     border-top: 2px solid #ddd;
-    /* position: relative; */
 }
 
 .feed .description {
     color: #555;
-    /* margin: 0; */
-    /* overflow: hidden; */
     padding: 10px;
     padding-top: 0;
     margin-top: -5px;
@@ -91,4 +78,31 @@ body>* {
 
 .suplovani table tbody:nth-child(even) {
     background-color: #f5f5f5;
+}
+
+.statusbar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    color: white;
+    text-align: center;
+    background-color: #790e1c;
+    width: 100vw;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.statusbar img {
+    width: 1em;
+}
+
+.statusbar span::before {
+    content: '|';
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    position: relative;
+    top: -0.05em;
+    color: rgba(255, 255, 255, 0.4);
 }
