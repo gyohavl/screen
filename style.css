@@ -6,11 +6,11 @@ body {
     margin: 0;
     transition: opacity 1s;
     font-family: Arial, sans-serif;
-	font-size: 0;
+    font-size: 0;
 }
 
-body > * {
-	font-size: 17px;
+body>* {
+    font-size: 17px;
 }
 
 .column {
@@ -30,8 +30,33 @@ body > * {
     width: 100vw;
 }
 
-img {
-    max-width: 100%;
+.feed .rss {
+    border-top: 1px solid #ddd;
+    border-bottom: 3px solid #ddd;
+}
+
+.feed .title {
+    padding: 10px;
+    font-size: 1.2em;
+    border-top: 2px solid #ddd;
+    /* position: relative; */
+}
+
+.feed .description {
+    color: #555;
+    /* margin: 0; */
+    /* overflow: hidden; */
+    padding: 10px;
+    padding-top: 0;
+    margin-top: -5px;
+}
+
+.feed img {
+    width: 100%;
+    display: block;
+    border-top: 3px solid #ddd;
+    border-bottom: 3px solid #ddd;
+    margin: 20px 0;
 }
 
 .suplovani {

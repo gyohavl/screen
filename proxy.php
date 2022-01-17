@@ -68,12 +68,17 @@ function formatOWM($input) {
 function formatRSS($xml) {
 	$simplexml = simplexml_load_string($xml);
 	$jsonxml = json_decode(json_encode($simplexml));
-	// $jsonxml = json_decode($simplexml);
-	// var_dump($jsonxml->channel->item);
 	$result = '';
 
-	foreach ($jsonxml->channel->item as $item_number => $item) {
-		$result .= $item->title . '<br>' . strip_tags($item->description) . '<br><br>';
+	if (isset($jsonxml->channel->item)) {
+		foreach ($jsonxml->channel->item as $item) {
+			if (isset($item->title)) {
+				$result .= '<div class="title">' . $item->title . '</div>';
+				if (isset($item->description)) {
+					$result .= '<div class="description">' . strip_tags($item->description) . '</div>';
+				}
+			}
+		}
 	}
 
 	return $result;

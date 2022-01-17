@@ -13,9 +13,9 @@ const data = {
 }
 const formatFunctions = [
     function left() {
-        let imageHtml = gec('images').split('\n').map(url => `<img src="${url}" />`).join('')
-        return imageHtml
-        // return gec('rss')
+        let imageHtml = gec('images').split('\n').map(url => url && `<img src="${url}" />`).join('')
+        let htmlContent = `<div class="rss">${gec('rss')}</div><div class="images">${imageHtml}</div>`
+        return (gec('rss') && imageHtml) && htmlContent
     },
     function right() {
         return getPartOfSuplovani(2)
@@ -77,7 +77,7 @@ function scrollDiv(i) {
     let reachedMax = elements[i].scrollTop >=
         (elements[i].scrollHeight - elements[i].offsetHeight)
 
-    if (reachedMax) {
+    if (reachedMax && data.elements[i]) {
         elements[i].innerHTML += data.elements[i]
     }
 }
