@@ -15,7 +15,7 @@ const formatFunctions = [
     function left() {
         let imageHtml = gec('images').split('\n').map(url => url ? `<img src="${url}" />` : '').join('')
         let htmlContent = `<div class="rss">${gec('rss')}</div><div class="images">${imageHtml}</div>`
-        return (gec('rss') && imageHtml) ? htmlContent : ''
+        return (gec('rss') || imageHtml) ? htmlContent : ''
     },
     function right() {
         return getPartOfSuplovani(2)
@@ -30,7 +30,7 @@ const formatFunctions = [
         return (
             logo
             + wrap(getPartOfSuplovani(0))
-            + wrap(gec('owm'))
+            + (gec('owm') ? wrap(gec('owm')) : '')
             + wrap(gec('nameday'))
             + suplovaniDate
         )

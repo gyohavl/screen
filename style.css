@@ -46,6 +46,14 @@ body>* {
     margin: 20px 0;
 }
 
+.feed .rss:empty {
+    display: none;
+}
+
+.feed .images:empty {
+    height: 20px;
+}
+
 .suplovani {
     border-left: 3px solid #ddd;
 }
