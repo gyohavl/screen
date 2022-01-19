@@ -21,18 +21,18 @@ const formatFunctions = [
         return getPartOfSuplovani(2)
     },
     function statusbar() {
+        const wrap = (html) => `<span>${html}</span>`
         let logo = '<img src="goh.svg" />'
         let suplovaniDate = (
             (getPartOfSuplovani(0) !== getPartOfSuplovani(1))
-                ? `zobrazuje se suplování pro ${getPartOfSuplovani(1)}` : ''
+                ? wrap(`zobrazuje se suplování pro ${getPartOfSuplovani(1)}`) : ''
         )
-        const wrap = (html) => `<span>${html}</span>`
         return (
             logo
             + wrap(getPartOfSuplovani(0))
             + wrap(gec('owm'))
             + wrap(gec('nameday'))
-            + wrap(suplovaniDate)
+            + suplovaniDate
         )
     }
 ]
