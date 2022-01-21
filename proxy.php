@@ -18,6 +18,7 @@ $sites = array(
 		. (isset($config['owm_key']) ? $config['owm_key'] : ''),
 	'suplovani' => 'data/right/suplobec.htm'
 );
+$firstImageNumber = 2;
 
 if (!empty($_GET['get'])) {
 	$key = $_GET['get'];
@@ -26,7 +27,7 @@ if (!empty($_GET['get'])) {
 	} else if ($key == 'images') {
 		header('Content-Type: text/plain');
 		$location = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/data/left/';
-		for ($i = 2; $i < 100; $i++) {
+		for ($i = $firstImageNumber; $i < 100; $i++) {
 			$headers = get_headers($location . $i . '.png', 1);
 			if ($headers['Content-Type'] != 'image/png') {
 				break;
