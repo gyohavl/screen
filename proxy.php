@@ -74,7 +74,7 @@ function formatRSS($xml) {
 		foreach ($jsonxml->channel->item as $item) {
 			if (isset($item->title)) {
 				$result .= '<div class="title">' . $item->title . '</div>';
-				if (isset($item->description) && $item->description) {
+				if (isset($item->description) && (array)$item->description) {
 					$result .= '<div class="description">' . insertNbsp(strip_tags($item->description)) . '</div>';
 				}
 			}
