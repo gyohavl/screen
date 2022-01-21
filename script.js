@@ -23,10 +23,14 @@ const formatFunctions = [
     function statusbar() {
         const wrap = (html) => (html ? `<span>${html}</span>` : '')
         let logo = '<img src="goh.svg" />'
-        let suplovaniDate = (
-            (getPartOfSuplovani(0) !== getPartOfSuplovani(1))
-                ? `zobrazuje se suplování pro ${getPartOfSuplovani(1)}` : ''
-        )
+        let suplovaniDate = ''
+
+        if (getPartOfSuplovani(0) !== getPartOfSuplovani(1)) {
+            suplovaniDate = getPartOfSuplovani(1)
+                ? `zobrazuje se suplování pro ${getPartOfSuplovani(1)}`
+                : 'suplování není dostupné'
+        }
+
         return (
             logo
             + wrap(getPartOfSuplovani(0))

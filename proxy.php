@@ -86,6 +86,8 @@ function formatRSS($xml) {
 
 function formatSuplovani($html) {
 	$delimiter = ';!;';
+	$months = array("Měsíce", "ledna", "února", "března", "dubna", "května", "června", "července", "srpna", "září", "října", "listopadu", "prosince");
+	$currentDate = date('j') . ". " . $months[date('n')] . $delimiter;
 
 	if ($html) {
 		$html = iconv('windows-1250', 'UTF-8', $html);
@@ -101,10 +103,9 @@ function formatSuplovani($html) {
 			$dateObj = DateTime::createFromFormat('j. n. Y', $date);
 			$day = $dateObj->format('j');
 			$month = $dateObj->format('n');
-			$months = array("Měsíce", "ledna", "února", "března", "dubna", "května", "června", "července", "srpna", "září", "října", "listopadu", "prosince");
-			$date = date('j') . ". " . $months[date('n')] . "$delimiter$day. {$months[$month]}";
+			$date = $currentDate . "$day. {$months[$month]}";
 		} else {
-			$date = $delimiter;
+			$date = $currentDate;
 		}
 
 		$classes = $html;
@@ -136,6 +137,8 @@ function formatSuplovani($html) {
 		}
 
 		$html = $date . $delimiter . $classes . $teachers;
+	} else {
+		$html = $currentDate . $delimiter;
 	}
 
 	return $html;
