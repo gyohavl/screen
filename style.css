@@ -33,9 +33,15 @@ body>* {
 
 .feed .description {
     color: #555;
-    padding: 10px;
-    padding-top: 0;
+    margin: 10px;
     margin-top: -5px;
+    /* https://stackoverflow.com/questions/3922739/limit-text-length-to-n-lines-using-css */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 
 .feed img {

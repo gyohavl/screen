@@ -74,14 +74,18 @@ function formatRSS($xml) {
 		foreach ($jsonxml->channel->item as $item) {
 			if (isset($item->title)) {
 				$result .= '<div class="title">' . $item->title . '</div>';
-				if (isset($item->description)) {
-					$result .= '<div class="description">' . strip_tags($item->description) . '</div>';
+				if (isset($item->description) && $item->description) {
+					$result .= '<div class="description">' . insertNbsp(strip_tags($item->description)) . '</div>';
 				}
 			}
 		}
 	}
 
 	return $result;
+}
+
+function insertNbsp($text) {
+	return preg_replace('/(?<=[\s(])([kvszaiou])\s/i', "$1&nbsp;", $text);
 }
 
 function formatSuplovani($html) {
