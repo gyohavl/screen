@@ -52,9 +52,10 @@ scrollInit()
 
 function getData() {
     for (let i = 0; i < endpoints.length; i++) {
-        fetch(proxyLocation + endpoints[i])
-            .then(r => r.text())
-            .then(html => checkAndSetDownloaded(i, html))
+        const xhttp = new XMLHttpRequest()
+        xhttp.onload = function () { checkAndSetDownloaded(i, this.responseText) }
+        xhttp.open('GET', proxyLocation + endpoints[i])
+        xhttp.send()
     }
 }
 

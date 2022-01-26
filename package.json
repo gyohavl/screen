@@ -1,0 +1,32 @@
+{
+  "name": "screen",
+  "version": "1.0.0",
+  "description": "Tento repozitář obsahuje webovou stránku určenou k projekci na obrazovce ve vestibulu Gymnázia Olgy Havlové v Ostravě-Porubě.",
+  "main": "script.js",
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "browserslist": [
+    "firefox 34"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gyohavl/screen.git"
+  },
+  "author": "Vít Kološ",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gyohavl/screen/issues"
+  },
+  "homepage": "https://github.com/gyohavl/screen#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.16.8",
+    "@babel/core": "^7.16.12",
+    "@babel/preset-env": "^7.16.11"
+  }
+}

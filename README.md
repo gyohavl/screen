@@ -4,15 +4,21 @@ Tento repozitář obsahuje webovou stránku určenou k projekci na obrazovce ve 
 
 ## První nastavení
 
-1. stáhnout tento repozitář (např. pomocí git clone)
+1. stáhnout tento repozitář (např. pomocí `git clone`)
 2. umístit ho na PHP server
 3. otevřít v prohlížeči index.html (tak by mělo dojít k vytvoření souboru config.php)
 4. v souboru config.php nastavit klíč pro OpenWeatherMap API a přepnout `debug` na `false`
 5. do složky data/right umístit HTML soubor se suplováním (suplobec.html)
 6. do složky data/left umístit PNG obrázky (2.png, 3.png, …)
+7. zkontrolovat, že je v PHP aktivovaná *cURL extension*
 
 ## Stáhnutí nové verze
 
-1. pomocí git pull stáhnout novou verzi repozitáře
+1. pomocí `git pull` stáhnout novou verzi repozitáře
 2. otevřít v prohlížeči index.html
 3. zkontrolovat, zda vše funguje, jak má (v případě potřeby upravit soubor config.php)
+
+## Vývoj
+
+1. `npm install`
+2. `npx babel script.js -o script-compiled.js` (pro sledování změn lze použít `-w`)
