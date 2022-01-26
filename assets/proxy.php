@@ -16,8 +16,7 @@ $sites = array(
 	'rss' => 'https://www.gyohavl.cz/aktuality?action=atom',
 	'owm' => 'http://api.openweathermap.org/data/2.5/weather?lat=49.8465503&lon=18.1733089&lang=cz&units=metric&appid='
 		. (isset($config['owm_key']) ? $config['owm_key'] : ''),
-	'suplovani' => 'data/right/suplobec.htm',
-	'favicon' => 'goh.svg'
+	'suplovani' => '../data/right/suplobec.htm'
 );
 $firstImageNumber = 2;
 
@@ -27,7 +26,7 @@ if (!empty($_GET['get'])) {
 		echo format(getContent($sites[$key]), $key);
 	} else if ($key == 'images') {
 		header('Content-Type: text/plain');
-		$location = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/data/left/';
+		$location = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/../data/left/';
 		for ($i = $firstImageNumber; $i < 100; $i++) {
 			$headers = get_headers($location . $i . '.png', 1);
 			if ($headers['Content-Type'] != 'image/png') {
@@ -65,8 +64,6 @@ function format($html, $key) {
 			return formatOWM($html);
 		case 'rss':
 			return formatRSS($html);
-		case 'favicon':
-			return formatFavicon($html);
 		default:
 			return $html;
 	}
@@ -190,11 +187,6 @@ function formatBoth($html, $isClass) {
 	$html = preg_replace("/\s?-\s/", ' – ', $html);
 	$html = preg_replace("/(\.,)(\d\.)(\w)/", '$1 $2 $3', $html);
 	return $html;
-}
-
-function formatFavicon($svg) {
-	header('Content-Type: image/svg+xml');
-	return str_replace('"#fff"', '"#790e1c"', $svg);
 }
 
 function getNameDay() {

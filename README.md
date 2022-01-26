@@ -21,4 +21,4 @@ Tento repozitář obsahuje webovou stránku určenou k projekci na obrazovce ve 
 ## Vývoj
 
 1. `npm install`
-2. `npx babel script.js -o script-compiled.js` (pro sledování změn lze použít `-w`)
+2. `npx babel assets/script.js -o assets/script-compiled.js` (pro sledování změn lze použít `-w`)

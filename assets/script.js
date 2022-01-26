@@ -1,4 +1,4 @@
-const proxyLocation = 'proxy.php?get='
+const proxyLocation = 'assets/proxy.php?get='
 let suplovaniDelimiter = ';!;'
 let refreshMillis = 30 * 1000
 const endpoints = ['rss', 'suplovani', 'owm', 'nameday', 'images']
@@ -22,7 +22,7 @@ const formatFunctions = [
     },
     function statusbar() {
         const wrap = (html) => (html ? `<span>${html}</span>` : '')
-        let logo = '<img src="goh.svg" />'
+        let logo = '<img src="assets/goh.svg" />'
         let suplovaniDate = ''
 
         if (getPartOfSuplovani(0) !== getPartOfSuplovani(1)) {

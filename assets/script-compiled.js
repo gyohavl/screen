@@ -1,6 +1,6 @@
 "use strict";
 
-var proxyLocation = 'proxy.php?get=';
+var proxyLocation = 'assets/proxy.php?get=';
 var suplovaniDelimiter = ';!;';
 var refreshMillis = 30 * 1000;
 var endpoints = ['rss', 'suplovani', 'owm', 'nameday', 'images'];
@@ -22,7 +22,7 @@ var formatFunctions = [function left() {
     return html ? `<span>${html}</span>` : '';
   };
 
-  var logo = '<img src="goh.svg" />';
+  var logo = '<img src="assets/goh.svg" />';
   var suplovaniDate = '';
 
   if (getPartOfSuplovani(0) !== getPartOfSuplovani(1)) {
