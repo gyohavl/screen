@@ -16,14 +16,15 @@ $sites = array(
 	'rss' => 'https://www.gyohavl.cz/aktuality?action=atom',
 	'owm' => 'http://api.openweathermap.org/data/2.5/weather?lat=49.8465503&lon=18.1733089&lang=cz&units=metric&appid='
 		. (isset($config['owm_key']) ? $config['owm_key'] : ''),
-	'suplovani' => 'data/right/suplobec.htm'
+	'suplovani' => 'data/right/suplobec.htm',
+	'favicon' => 'goh.svg'
 );
 $firstImageNumber = 2;
 
 if (!empty($_GET['get'])) {
 	$key = $_GET['get'];
 	if (array_key_exists($key, $sites)) {
-		echo format(file_get_contents($sites[$key]), $key);
+		echo format(getContent($sites[$key]), $key);
 	} else if ($key == 'images') {
 		header('Content-Type: text/plain');
 		$location = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/data/left/';
@@ -41,6 +42,20 @@ if (!empty($_GET['get'])) {
 	}
 }
 
+function getContent($url) {
+	if (strpos($url, '://') === false) {
+		return file_get_contents($url);
+	}
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_URL, $url);
+	$data = curl_exec($ch);
+	curl_close($ch);
+	return $data;
+}
+
 function format($html, $key) {
 	switch ($key) {
 		case 'suplovani':
@@ -49,6 +64,8 @@ function format($html, $key) {
 			return formatOWM($html);
 		case 'rss':
 			return formatRSS($html);
+		case 'favicon':
+			return formatFavicon($html);
 		default:
 			return $html;
 	}
@@ -95,7 +112,10 @@ function formatSuplovani($html) {
 	$currentDate = date('j') . ". " . $months[date('n')] . $delimiter;
 
 	if ($html) {
-		$html = iconv('windows-1250', 'UTF-8', $html);
+		if (strpos($html, 'charset=windows-1250') !== false) {
+			$html = iconv('windows-1250', 'UTF-8', $html);
+		}
+
 		$html = preg_replace('/[\n\r]/', '', $html);
 		$html = preg_replace('/>\s+</', '><', $html);
 
@@ -169,6 +189,11 @@ function formatBoth($html, $isClass) {
 	$html = preg_replace("/\s?-\s/", ' – ', $html);
 	$html = preg_replace("/(\.,)(\d\.)(\w)/", '$1 $2 $3', $html);
 	return $html;
+}
+
+function formatFavicon($svg) {
+	header('Content-Type: image/svg+xml');
+	return str_replace('"#fff"', '"#790e1c"', $svg);
 }
 
 function getNameDay() {
