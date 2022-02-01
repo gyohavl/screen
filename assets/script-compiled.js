@@ -8,6 +8,7 @@
 var proxyLocation = 'assets/proxy.php?get=';
 var suplovaniDelimiter = ';!;';
 var refreshMillis = 30 * 1000;
+var scrollRate = 30;
 var endpoints = ['rss', 'suplovani', 'owm', 'nameday', 'images'];
 var elements = [document.getElementById('left'), document.getElementById('right'), document.getElementById('statusbar')];
 var data = {
@@ -36,14 +37,11 @@ var formatFunctions = [function left() {
 
   return logo + wrap(getPartOfSuplovani(0)) + wrap(gec('owm')) + wrap(gec('nameday')) + wrap(suplovaniDate);
 }];
-var scroll = {
-  numberOfElements: 2,
-  rate: 30,
-  interval: []
-};
 getData();
-setInterval(getData, refreshMillis);
-scrollInit();
+setInterval(getData, refreshMillis); // scrolling and checking logic is separated to avoid lags
+
+setInterval(scrollDivs, scrollRate);
+setInterval(checkMaxTwice, scrollRate * 50.5);
 
 function getData() {
   var _loop = function _loop(i) {
@@ -85,16 +83,19 @@ function checkAndSetElement(elementId) {
   }
 }
 
-function scrollInit() {
-  for (var i = 0; i < scroll.numberOfElements; i++) {
-    elements[i].scrollTop = 0;
-    scroll.interval[i] = setInterval('scrollDiv(' + i + ')', scroll.rate);
-  }
+function scrollDivs() {
+  elements[0].scrollTop++;
+  elements[1].scrollTop++;
 }
 
-function scrollDiv(i) {
-  elements[i].scrollTop++;
-  var reachedMax = elements[i].scrollTop >= elements[i].scrollHeight - elements[i].offsetHeight;
+function checkMaxTwice() {
+  checkMax(0);
+  checkMax(1);
+}
+
+function checkMax(i) {
+  // 500 is here to avoid lags
+  var reachedMax = elements[i].scrollTop + 500 >= elements[i].scrollHeight - elements[i].offsetHeight;
 
   if (reachedMax && data.elements[i]) {
     elements[i].innerHTML += data.elements[i];

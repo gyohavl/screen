@@ -1,6 +1,7 @@
 const proxyLocation = 'assets/proxy.php?get='
-let suplovaniDelimiter = ';!;'
-let refreshMillis = 30 * 1000
+const suplovaniDelimiter = ';!;'
+const refreshMillis = 30 * 1000
+const scrollRate = 30
 const endpoints = ['rss', 'suplovani', 'owm', 'nameday', 'images']
 const elements = [
     document.getElementById('left'),
@@ -13,8 +14,8 @@ const data = {
 }
 const formatFunctions = [
     function left() {
-        let imageHtml = gec('images').split('\n').map(url => url ? `<img src="${url}" />` : '').join('')
-        let htmlContent = `<div class="rss">${gec('rss')}</div><div class="images">${imageHtml}</div>`
+        const imageHtml = gec('images').split('\n').map(url => url ? `<img src="${url}" />` : '').join('')
+        const htmlContent = `<div class="rss">${gec('rss')}</div><div class="images">${imageHtml}</div>`
         return (gec('rss') || imageHtml) ? htmlContent : ''
     },
     function right() {
@@ -22,7 +23,7 @@ const formatFunctions = [
     },
     function statusbar() {
         const wrap = (html) => (html ? `<span>${html}</span>` : '')
-        let logo = '<img src="assets/goh.svg" />'
+        const logo = '<img src="assets/goh.svg" />'
         let suplovaniDate = ''
 
         if (getPartOfSuplovani(0) !== getPartOfSuplovani(1)) {
@@ -40,15 +41,13 @@ const formatFunctions = [
         )
     }
 ]
-const scroll = {
-    numberOfElements: 2,
-    rate: 30,
-    interval: []
-}
 
 getData()
 setInterval(getData, refreshMillis)
-scrollInit()
+
+// scrolling and checking logic is separated to avoid lags
+setInterval(scrollDivs, scrollRate)
+setInterval(checkMaxTwice, scrollRate * 50.5)
 
 function getData() {
     for (let i = 0; i < endpoints.length; i++) {
@@ -73,7 +72,7 @@ function updateAllElements() {
 }
 
 function checkAndSetElement(elementId) {
-    let html = formatFunctions[elementId]()
+    const html = formatFunctions[elementId]()
 
     if (html && html !== data.elements[elementId]) {
         data.elements[elementId] = html
@@ -82,16 +81,19 @@ function checkAndSetElement(elementId) {
     }
 }
 
-function scrollInit() {
-    for (let i = 0; i < scroll.numberOfElements; i++) {
-        elements[i].scrollTop = 0
-        scroll.interval[i] = setInterval('scrollDiv(' + i + ')', scroll.rate)
-    }
+function scrollDivs() {
+    elements[0].scrollTop++
+    elements[1].scrollTop++
 }
 
-function scrollDiv(i) {
-    elements[i].scrollTop++
-    let reachedMax = elements[i].scrollTop >=
+function checkMaxTwice() {
+    checkMax(0)
+    checkMax(1)
+}
+
+function checkMax(i) {
+    // 500 is here to avoid lags
+    const reachedMax = (elements[i].scrollTop + 500) >=
         (elements[i].scrollHeight - elements[i].offsetHeight)
 
     if (reachedMax && data.elements[i]) {
@@ -101,7 +103,7 @@ function scrollDiv(i) {
 
 function gec(endpointName) {
     // getEndpointContent
-    let index = endpoints.indexOf(endpointName)
+    const index = endpoints.indexOf(endpointName)
     return index === -1 ? '' : data.endpoints[index]
 }
 
