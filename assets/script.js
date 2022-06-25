@@ -10,7 +10,7 @@ const elements = [
 ]
 const data = {
     endpoints: ['', '', '', '', ''],
-    elements: ['', '', '']
+    elements: [document.createElement('div'), document.createElement('div'), document.createElement('div')]
 }
 const formatFunctions = [
     function left() {
@@ -73,10 +73,13 @@ function updateAllElements() {
 
 function checkAndSetElement(elementId) {
     const html = formatFunctions[elementId]()
-
-    if (html && html !== data.elements[elementId]) {
-        data.elements[elementId] = html
-        elements[elementId].innerHTML = html
+    
+    if (html && html !== data.elements[elementId].innerHTML) {
+        console.log(html, data.elements[elementId].innerHTML)
+        // todo: fix this
+        data.elements[elementId].innerHTML = html
+        elements[elementId].textContent = ''
+        elements[elementId].appendChild(data.elements[elementId].cloneNode(true))
         elements[elementId].scrollTop = 0
     }
 }
@@ -96,8 +99,8 @@ function checkMax(i) {
     const reachedMax = (elements[i].scrollTop + 500) >=
         (elements[i].scrollHeight - elements[i].offsetHeight)
 
-    if (reachedMax && data.elements[i]) {
-        elements[i].innerHTML += data.elements[i]
+    if (reachedMax && data.elements[i].innerHTML) {
+        elements[i].appendChild(data.elements[i].cloneNode(true))
     }
 }
 

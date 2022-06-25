@@ -13,7 +13,7 @@ var endpoints = ['rss', 'suplovani', 'owm', 'nameday', 'images'];
 var elements = [document.getElementById('left'), document.getElementById('right'), document.getElementById('statusbar')];
 var data = {
   endpoints: ['', '', '', '', ''],
-  elements: ['', '', '']
+  elements: [document.createElement('div'), document.createElement('div'), document.createElement('div')]
 };
 var formatFunctions = [function left() {
   var imageHtml = gec('images').split('\n').map(function (url) {
@@ -76,9 +76,12 @@ function updateAllElements() {
 function checkAndSetElement(elementId) {
   var html = formatFunctions[elementId]();
 
-  if (html && html !== data.elements[elementId]) {
-    data.elements[elementId] = html;
-    elements[elementId].innerHTML = html;
+  if (html && html !== data.elements[elementId].innerHTML) {
+    console.log(html, data.elements[elementId].innerHTML); // todo: fix this
+
+    data.elements[elementId].innerHTML = html;
+    elements[elementId].textContent = '';
+    elements[elementId].appendChild(data.elements[elementId].cloneNode(true));
     elements[elementId].scrollTop = 0;
   }
 }
@@ -97,8 +100,8 @@ function checkMax(i) {
   // 500 is here to avoid lags
   var reachedMax = elements[i].scrollTop + 500 >= elements[i].scrollHeight - elements[i].offsetHeight;
 
-  if (reachedMax && data.elements[i]) {
-    elements[i].innerHTML += data.elements[i];
+  if (reachedMax && data.elements[i].innerHTML) {
+    elements[i].appendChild(data.elements[i].cloneNode(true));
   }
 }
 

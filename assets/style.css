@@ -86,10 +86,6 @@ body>* {
     border-top: 2px solid #ddd;
 }
 
-.suplovani table:first-of-type tbody:first-child {
-    border-top-width: 3px;
-}
-
 .suplovani table tbody:nth-child(even) {
     background-color: #f5f5f5;
 }
