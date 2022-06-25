@@ -26,7 +26,7 @@ if (!empty($_GET['get'])) {
 		echo format(getContent($sites[$key]), $key);
 	} else if ($key == 'images') {
 		header('Content-Type: text/plain');
-		$location = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/../data/left/';
+		$location = str_replace(' ', '%20', 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF'], 2) . '/data/left/');
 		for ($i = $firstImageNumber; $i < 100; $i++) {
 			$headers = get_headers($location . $i . '.png', 1);
 			if ($headers['Content-Type'] != 'image/png') {
@@ -90,7 +90,7 @@ function formatRSS($xml) {
 		foreach ($jsonxml->channel->item as $item) {
 			if (isset($item->title)) {
 				$result .= '<div class="title">' . $item->title . '</div>';
-				if (isset($item->description) && (array)$item->description) {
+				if (isset($item->description) && (array)$item->description && preg_replace('/\xc2\xa0|\s/', '', $item->description)) {
 					$result .= '<div class="description">' . insertNbsp(strip_tags($item->description)) . '</div>';
 				}
 			}

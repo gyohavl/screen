@@ -35,13 +35,9 @@ body>* {
     color: #555;
     margin: 10px;
     margin-top: -5px;
-    /* https://stackoverflow.com/questions/3922739/limit-text-length-to-n-lines-using-css */
     overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    -webkit-box-orient: vertical;
+    line-height: 1.2;
+    max-height: 61.2px;
 }
 
 .feed img {
@@ -99,6 +95,9 @@ body>* {
     background-color: #790e1c;
     width: 100vw;
     padding: 5px;
+}
+
+.statusbar > div {
     display: flex;
     justify-content: center;
     align-items: center;

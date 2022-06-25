@@ -75,10 +75,10 @@ function updateAllElements() {
 
 function checkAndSetElement(elementId) {
   var html = formatFunctions[elementId]();
+  var referenceNode = document.createElement('div');
+  referenceNode.innerHTML = html;
 
-  if (html && html !== data.elements[elementId].innerHTML) {
-    console.log(html, data.elements[elementId].innerHTML); // todo: fix this
-
+  if (html && !referenceNode.isEqualNode(data.elements[elementId])) {
     data.elements[elementId].innerHTML = html;
     elements[elementId].textContent = '';
     elements[elementId].appendChild(data.elements[elementId].cloneNode(true));
