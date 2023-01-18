@@ -9,7 +9,7 @@ Tento repozitář obsahuje webovou stránku určenou k projekci na obrazovce ve 
 3. otevřít v prohlížeči `index.html` (tak by mělo dojít k vytvoření souboru `assets/config.php`)
 4. v souboru `assets/config.php` nastavit klíč pro OpenWeatherMap API a přepnout `debug` na `false`
 5. do složky `data/right` umístit HTML soubor se suplováním (suplobec.html)
-6. do složky `data/left` umístit PNG obrázky (2.png, 3.png, …)
+6. do složky `data/left` umístit PNG obrázky (1.png, 2.png, …)
 7. zkontrolovat, že je v PHP aktivovaná *cURL extension*
 
 ## Stáhnutí nové verze

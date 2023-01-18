@@ -18,7 +18,7 @@ $sites = array(
 		. (isset($config['owm_key']) ? $config['owm_key'] : ''),
 	'suplovani' => '../data/right/suplobec.htm'
 );
-$firstImageNumber = 2;
+$firstImageNumber = 1;
 
 if (!empty($_GET['get'])) {
 	$key = $_GET['get'];
